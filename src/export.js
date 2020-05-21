@@ -21,7 +21,7 @@ var options     = {
     '--load-extension=' + __dirname,
     '--disable-extensions-except=' + __dirname,
     '--disable-infobars',
-    '--no-sandbox',    
+    '--no-sandbox',
     '--shm-size=1gb',
     '--disable-dev-shm-usage',
     `--window-size=${width},${height}`,
@@ -41,7 +41,7 @@ async function main() {
             xvfb.startSync()
         }
         var url = process.argv[2],
-            exportname = process.argv[3], 
+            exportname = process.argv[3],
             duration = process.argv[4],
             convert = process.argv[5]
 
@@ -49,10 +49,10 @@ async function main() {
         if(!exportname){ exportname = 'export.webm' }
         if(!duration){ duration = 10 }
         if(!convert){ convert = false }
-        
+
         const browser = await puppeteer.launch(options)
         const pages = await browser.pages()
-        
+
         const page = pages[0]
 
         page.on('console', msg => {
@@ -97,7 +97,7 @@ async function main() {
         }else{
             copyOnly(exportname)
         }
-        
+
     }catch(err) {
         console.log(err)
     }
@@ -106,7 +106,7 @@ async function main() {
 main()
 
 function convertAndCopy(filename){
- 
+
     var copyFromPath = homedir + "/Downloads";
     var copyToPath = "/var/www/bigbluebutton-default/record";
     var onlyfileName = filename.split(".webm")
@@ -124,7 +124,7 @@ function convertAndCopy(filename){
     var cmd = "ffmpeg -y -i '" + copyFrom + "' -c:v libx264 -preset veryfast -movflags faststart -profile:v high -level 4.2 -max_muxing_queue_size 9999 -vf mpdecimate -vsync vfr '" + copyTo + "'";
 
     console.log("converting using: " + cmd);
-    
+
     exec(cmd, function(err, stdout, stderr) {
 
         if (err) console.log('err:\n' + err);
