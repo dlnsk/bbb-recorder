@@ -28,12 +28,6 @@ var options     = {
   ],
 }
 
-if(platform == "linux"){
-    options.executablePath = "/usr/bin/google-chrome"
-}else if(platform == "darwin"){
-    options.executablePath = "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-}
-
 
 async function main() {
     try{
@@ -106,7 +100,7 @@ main()
 function convertAndCopy(filename){
 
     var copyFromPath = homedir + "/Downloads";
-    var copyToPath = "/var/www/bigbluebutton-default/record";
+    var copyToPath = "/usr/app/records";
     var onlyfileName = filename.split(".webm")
     var mp4File = onlyfileName[0] + ".mp4"
     var copyFrom = copyFromPath + "/" + filename + ""
@@ -143,7 +137,7 @@ function convertAndCopy(filename){
 function copyOnly(filename){
 
     var copyFrom = homedir + "/Downloads/" + filename;
-    var copyToPath = "/var/www/bigbluebutton-default/record";
+    var copyToPath = "/usr/app/records";
     var copyTo = copyToPath + "/" + filename;
 
     if(!fs.existsSync(copyToPath)){
