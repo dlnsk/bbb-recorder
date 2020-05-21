@@ -1,0 +1,1 @@
+docker container run -it --rm -v $(pwd)/src:/usr/app/src -v $(pwd)/records:/usr/app/records --cap-add=SYS_ADMIN dlnsk/bbb-recorder node src/export.js https://bbb-1.nspu.ru/playback/presentation/2.0/playback.html?meetingId=fef62cd8ab84891bdac08c74d0e313ee33278455-1589826105335 meeting.webm 60
