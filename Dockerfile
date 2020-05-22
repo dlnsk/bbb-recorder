@@ -8,8 +8,8 @@ WORKDIR /usr/app
 USER root
 RUN apk update && apk add xvfb@edge
 
-COPY package.json ./
-#COPY export.js ./src
+COPY src/*.json ./src/
+COPY src/*.js   ./src/
 
 RUN chown -R chrome:chrome /usr/app
 
