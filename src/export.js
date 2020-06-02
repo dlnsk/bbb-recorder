@@ -85,7 +85,7 @@ async function main() {
         }
 
         if(convert){
-            convertAndCopy(exportname)
+            fixTimelineAndCopy(exportname)
         }else{
             copyOnly(exportname)
         }
@@ -121,6 +121,42 @@ function convertAndCopy(filename){
 
         if (err) console.log('err:\n' + err);
         //if (stderr) console.log('stderr:\n' + stderr);
+
+        if(!err){
+            console.log("Now deleting " + copyFrom)
+            try {
+              fs.unlinkSync(copyFrom);
+              console.log('successfully deleted ' + copyFrom);
+            } catch (err) {
+              console.log(err)
+            }
+        }
+    });
+}
+
+function fixTimelineAndCopy(filename){
+
+    var copyFromPath = homedir + "/Downloads";
+    var copyToPath = "/usr/app/records";
+    var onlyfileName = filename.split(".webm")
+    var mp4File = onlyfileName[0] + ".mp4"
+    var copyFrom = copyFromPath + "/" + filename + ""
+    var copyTo = copyToPath + "/" + mp4File;
+
+    if(!fs.existsSync(copyToPath)){
+        fs.mkdirSync(copyToPath);
+    }
+
+    console.log(copyTo);
+    console.log(copyFrom);
+
+    var cmd = "ffmpeg -fflags +genpts -y -i '" + copyFrom + "' -c copy -strict -2 -loglevel quiet '" + copyTo + "'";
+
+    console.log("converting using: " + cmd);
+
+    exec(cmd, function(err, stdout, stderr) {
+
+        if (err) console.log('err:\n' + err);
 
         if(!err){
             console.log("Now deleting " + copyFrom)
