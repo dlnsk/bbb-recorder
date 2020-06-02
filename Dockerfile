@@ -6,6 +6,7 @@ ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/chromium-browser
 WORKDIR /usr/app
 
 USER root
+RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 RUN apk update && apk add xvfb@edge
 
 COPY src/*.json ./src/
