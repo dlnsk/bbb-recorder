@@ -9,8 +9,7 @@ USER root
 RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 RUN apk update && apk add xvfb@edge
 
-COPY src/*.json ./src/
-COPY src/*.js   ./src/
+COPY ./ ./
 
 RUN chown -R chrome:chrome /usr/app
 
